@@ -1,0 +1,22 @@
+{
+  "name": "zerowallet-poc",
+  "version": "1.0.0",
+  "description": "Proof of concept for zerowallet",
+  "main": "index.js",
+  "author": "Fission",
+  "license": "Apache-2.0",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "bigi": "^1.4.2",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^8.2.0",
+    "ecurve": "^1.0.6",
+    "express": "^4.17.1",
+    "nodemon": "^1.19.4",
+    "pg": "^7.12.1"
+  }
+}
