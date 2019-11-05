@@ -4,7 +4,7 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const crypto = require('crypto')
-const ECC = require('../lib/ECCLib')
+const { ecExponent } = require('utils')
 const { Client } = require('pg')
 
 const client = new Client()
