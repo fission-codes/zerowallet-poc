@@ -4,7 +4,7 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const crypto = require('crypto')
-const { ecExponent } = require('../lib/utils')
+const { randomBytes32, ecExponent } = require('../lib/utils')
 const { Client } = require('pg')
 
 const client = new Client()
@@ -25,20 +25,20 @@ app.post('/', async (req, res) => {
   `)
 
   if(usersRes.rowCount < 1){
-    const key = crypto.createHash('sha256').update("poasidfuapsodifu")
+    const random = randomBytes32()
+    const key = crypto.createHash('sha256').update(random)
     digest = key.digest('hex')
-    const query = `
+    
+    await client.query(`
       INSERT INTO zk_keys(username, zk_key)
       VALUES ('${username}', '${digest}');
-    `
-    await client.query(query)
+    `)
   }else{
     digest = usersRes.rows[0].zk_key
   }
 
   const beta = ecExponent(alpha, digest)
-  console.log(beta)
-  res.send(String(beta[0])).status(200)
+  res.send(beta[0]).status(200)
 })
 
 const port = process.env.SERVER_PORT || 8080

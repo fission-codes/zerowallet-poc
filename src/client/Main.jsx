@@ -2,7 +2,6 @@ import React from 'react';
 import { withStyles, createStyles } from "@material-ui/core/styles";
 import Container from '@material-ui/core/Container';
 import LoginForm from './components/LoginForm';
-import { createShard } from '../lib/utils';
 import keystore from '../lib/keystore';
 
 class Main extends React.Component {
@@ -18,13 +17,13 @@ class Main extends React.Component {
   }
 
   handleSubmit = async (info) => {
-    evt.preventDefault()
     const { username, password1, password2 } = info
+
     if(this.state.hasShard){
       const secret = keystore.getPrivKey(password1)
       console.log('secret: ', secret)
     }else {
-      await createShard(username, password1, password2)
+      await keystore.createShard(username, password1, password2)
     }
   }
 

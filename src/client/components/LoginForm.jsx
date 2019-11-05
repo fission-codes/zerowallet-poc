@@ -32,15 +32,18 @@ class LoginForm extends React.Component {
           <Typography variant="h4" className={classes.input}>
             {hasShard ? "Login" : "Signup/Recover"}
           </Typography>
+          <Typography>
+            Looks like you haven't logged in on this device before. Create your 
+          </Typography>
           <TextField
-            placeholder="Username"
+            label="Username"
             value={this.state.username}
             onChange={this.handleChange("username")}
             fullWidth
             className={classes.input}
           />
           <TextField
-            placeholder="Password 1"
+            label="Account Password"
             value={this.state.password1}
             type="password"
             onChange={this.handleChange("password1")}
@@ -50,13 +53,13 @@ class LoginForm extends React.Component {
           {!hasShard &&
             <React.Fragment>
               <TextField
-            placeholder="Password 2"
-            value={this.state.password2}
-            type="password"
-            onChange={this.handleChange("password2")}
-            fullWidth
-            className={classes.input}
-          />
+                label="Recovery Password"
+                value={this.state.password2}
+                type="password"
+                onChange={this.handleChange("password2")}
+                fullWidth
+                className={classes.input}
+              />
             </React.Fragment>
           }
           <Button
@@ -84,7 +87,7 @@ const styles = theme =>
       alignItems: 'center',
     },
     input: {
-      marginBottom: theme.spacing(3),
+      marginBottom: theme.spacing(2),
     }
   });
 
