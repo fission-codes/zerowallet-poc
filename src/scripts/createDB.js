@@ -7,7 +7,7 @@ const migrate = async () => {
 
   const res = await client.query(`
     CREATE TABLE zk_keys (
-      user_id bigint PRIMARY KEY,
+      username text PRIMARY KEY,
       zk_key text NOT NULL
     );
   `)

@@ -4,7 +4,7 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const crypto = require('crypto')
-const ECC = require('./ECCLib')
+const ECC = require('../lib/ECCLib')
 const { Client } = require('pg')
 
 const client = new Client()
@@ -15,21 +15,21 @@ app.use(cors())
 app.use(bodyParser.json())
 
 app.post('/', async (req, res) => {
-  const { userID, alpha } = req.body
+  const { username, alpha } = req.body
   let digest
 
   const usersRes = await client.query(`
     SELECT *
     FROM zk_keys
-    WHERE user_id = ${userID}
+    WHERE username = '${username}'
   `)
 
   if(usersRes.rowCount < 1){
     const key = crypto.createHash('sha256').update("poasidfuapsodifu")
     digest = key.digest('hex')
     const query = `
-      INSERT INTO zk_keys(user_id, zk_key)
-      VALUES (${userID}, '${digest}');
+      INSERT INTO zk_keys(username, zk_key)
+      VALUES ('${username}', '${digest}');
     `
     await client.query(query)
   }else{
@@ -37,8 +37,9 @@ app.post('/', async (req, res) => {
   }
 
   const beta = ECC.ECExponent(alpha, digest)
-  res.send(beta[0]).status(200)
+  console.log(beta)
+  res.send(String(beta[0])).status(200)
 })
 
-const port = process.env.PORT || 3000
+const port = process.env.SERVER_PORT || 8080
 app.listen(port, () => console.log(`Listening on port ${port}!`))
