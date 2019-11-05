@@ -23,7 +23,8 @@ class Main extends React.Component {
       const secret = keystore.getPrivKey(password1)
       console.log('secret: ', secret)
     }else {
-      await keystore.createShard(username, password1, password2)
+      const shard = await keystore.createShard(username, password1, password2)
+      keystore.saveShard(shard)
     }
   }
 

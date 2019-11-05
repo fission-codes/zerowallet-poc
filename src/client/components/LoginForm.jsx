@@ -32,9 +32,6 @@ class LoginForm extends React.Component {
           <Typography variant="h4" className={classes.input}>
             {hasShard ? "Login" : "Signup/Recover"}
           </Typography>
-          <Typography>
-            Looks like you haven't logged in on this device before. Create your 
-          </Typography>
           <TextField
             label="Username"
             value={this.state.username}
@@ -60,6 +57,9 @@ class LoginForm extends React.Component {
                 fullWidth
                 className={classes.input}
               />
+              <Typography variant="caption" className={classes.caption}>
+                Looks like you haven't logged in on this device before. Create your account, or use your recovery password to login.
+              </Typography>
             </React.Fragment>
           }
           <Button
@@ -88,6 +88,10 @@ const styles = theme =>
     },
     input: {
       marginBottom: theme.spacing(2),
+    },
+    caption: {
+      textAlign: "center",
+      marginBottom: theme.spacing(2)
     }
   });
 

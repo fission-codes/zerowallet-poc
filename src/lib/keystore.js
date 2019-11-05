@@ -36,9 +36,6 @@ const createShard = async (username, password1, password2) => {
   return privshare
 }
 
-const alphaFromPass = (hashpw, random) => {
-}
-
 module.exports = {
   saveShard,
   getShard,
