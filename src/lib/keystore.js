@@ -1,21 +1,21 @@
-import { sha256 } from '../lib/utils'
+const { sha256 } = require('../lib/utils')
 
-export function saveShard(shard) {
+function saveShard(shard) {
   window.localStorage.setItem("shard", shard)
 }
 
-export function getShard() {
+function getShard() {
   return window.localStorage.getItem("shard")
 }
 
-export function getPrivKey(password) {
+function getPrivKey(password) {
   return secrets.combine([
     getShard(),
     `801${sha256(password)}`
   ])
 }
 
-export default {
+module.exports = {
   saveShard,
   getShard,
   getPrivKey

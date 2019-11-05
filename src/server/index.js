@@ -4,7 +4,7 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const crypto = require('crypto')
-const { ecExponent } = require('utils')
+const { ecExponent } = require('../lib/utils')
 const { Client } = require('pg')
 
 const client = new Client()
@@ -36,7 +36,7 @@ app.post('/', async (req, res) => {
     digest = usersRes.rows[0].zk_key
   }
 
-  const beta = ECC.ECExponent(alpha, digest)
+  const beta = ecExponent(alpha, digest)
   console.log(beta)
   res.send(String(beta[0])).status(200)
 })
