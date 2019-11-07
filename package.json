@@ -21,6 +21,7 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "dotenv-webpack": "^1.7.0",
     "eccrypto": "^1.1.2",
     "ecurve": "^1.0.6",
     "elliptic": "^6.5.1",
