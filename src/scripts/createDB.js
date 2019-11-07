@@ -1,6 +1,6 @@
 require('dotenv').config()
 const { Client } = require('pg')
-const tableName = process.env.TABLE_NAME || "zk_users"
+const tableName = process.env.TABLE_NAME || "zw_users"
 
 const migrate = async () => {
   const client = new Client()

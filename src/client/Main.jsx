@@ -54,7 +54,7 @@ class Main extends React.Component {
 const styles = theme =>
   createStyles({
     loginContainer: {
-      margin: theme.spacing(16),
+      marginTop: theme.spacing(8),
       display: 'flex',
       justifyContent: 'center',
     }

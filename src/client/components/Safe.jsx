@@ -49,6 +49,7 @@ class Safe extends React.Component {
           autoFocus
           rows="10"
           variant="outlined"
+          placeholder="Store a private note here"
           value={this.state.text}
           onChange={this.handleChange}
         />
