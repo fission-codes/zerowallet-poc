@@ -4,6 +4,8 @@ Here's a brief rundown of the architecture and setup behind our identity proof o
 
 Check out the app here: https://safe.fission.name/
 
+<img src="screenshot.png" width="400">
+
 ## Overview
 The goal of this application to to equip a user with a private key while providing UX similar to a traditional web app. 
 
