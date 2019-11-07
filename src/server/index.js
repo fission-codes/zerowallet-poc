@@ -7,6 +7,8 @@ const crypto = require('crypto')
 const { randomBytes32, ecExponent } = require('../lib/utils')
 const { Client } = require('pg')
 
+const tableName = process.env.TABLE_NAME || "zk_users"
+
 const client = new Client()
 client.connect()
 
@@ -17,7 +19,7 @@ app.use(bodyParser.json())
 const getUserByUsername = async (username) => {
   const usersRes = await client.query(`
     SELECT *
-    FROM users
+    FROM ${tableName}
     WHERE username = '${username}'
   `)
   if(usersRes.rowCount < 1){
@@ -41,7 +43,7 @@ app.post('/', async (req, res) => {
     digest = key.digest('hex')
     
     await client.query(`
-      INSERT INTO users(username, zk_key)
+      INSERT INTO ${tableName}(username, zk_key)
       VALUES ('${username}', '${digest}');
     `)
   }else{
@@ -71,7 +73,7 @@ app.post('/safe-key', async (req, res) => {
     return res.status(400).send("Please include username & key")
   }
   await client.query(`
-    UPDATE users
+    UPDATE ${tableName}
     SET safe_key = '${key}'
     WHERE username = '${username}'
   `)
@@ -85,7 +87,7 @@ app.post('/safe-cid', async (req, res) => {
     return res.status(400).send("Please include username & cid")
   }
   await client.query(`
-    UPDATE users
+    UPDATE ${tableName}
     SET safe_cid = '${cid}'
     WHERE username = '${username}'
   `)
