@@ -6,9 +6,11 @@ const migrate = async () => {
   await client.connect()
 
   const res = await client.query(`
-    CREATE TABLE zk_keys (
+    CREATE TABLE users (
       username text PRIMARY KEY,
-      zk_key text NOT NULL
+      zk_key text NOT NULL,
+      safe_cid text,
+      safe_key text
     );
   `)
   console.log(res)

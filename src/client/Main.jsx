@@ -2,30 +2,37 @@ import React from 'react';
 import { withStyles, createStyles } from "@material-ui/core/styles";
 import Container from '@material-ui/core/Container';
 import LoginForm from './components/LoginForm';
+import Safe from './components/Safe';
 import keystore from '../lib/keystore';
 
 class Main extends React.Component {
   state = {
-    hasShard: false
+    username: null,
+    hasShard: false,
+    isLocked: true,
   };
 
-  componentDidMount(){
-    const shard = keystore.getShard()
-    if(shard && shard.length > 0){
-      this.setState({ hasShard: true })
-    }
+  async componentDidMount(){
+    const hasShard = keystore.hasShard()
+    this.setState({ hasShard })
+    // await keystore.unlock("dholms", "asdf")
+    // this.setState({ hasShard, username: "dholms", isLocked: false })
   }
 
   handleSubmit = async (info) => {
     const { username, password1, password2 } = info
 
     if(this.state.hasShard){
-      const secret = keystore.getPrivKey(password1)
-      console.log('secret: ', secret)
+      await keystore.unlock(username, password1)
     }else {
-      const shard = await keystore.createShard(username, password1, password2)
-      keystore.saveShard(shard)
+      await keystore.createShard(username, password1, password2)
+      await keystore.unlock(username, password1)
     }
+    this.setState({
+      username,
+      hasShard: true,
+      isLocked: false,
+    })
   }
 
   render() {
@@ -33,7 +40,11 @@ class Main extends React.Component {
     return (
       <Container>
         <div className={classes.loginContainer}>
-          <LoginForm onSubmit={this.handleSubmit} hasShard={this.state.hasShard} />
+          {
+            this.state.isLocked ?
+            <LoginForm onSubmit={this.handleSubmit} hasShard={this.state.hasShard} /> : 
+            <Safe username={this.state.username} />
+          }
         </div>
       </Container>
     );
