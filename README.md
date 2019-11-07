@@ -13,6 +13,16 @@ In the demo application, a user stores a private note in IPFS that is encrypted/
 
 For the first iteration of our identity system, we decided to use the [ZeroWallet](http://zerowallet.me/) scheme. 
 
+## To Run Locally
+- Install dependencies
+  - `yarn`
+- Setup environment
+  - `cp .env.example .env`
+  - change variables
+- Run
+  - `yarn dev`
+  - Given defaults, your server will be on port `8080` and a React app will be on port `3000`
+
 ## ZeroWallet
 ZeroWallet is a simple scheme where a user generates a private key with two passwords, and unlocks their account on login using just a username and password.
 
