@@ -55,6 +55,7 @@ app.post('/', async (req, res) => {
 }) 
 
 app.get('/safe-info', async (req, res) => {
+  console.log("HERE")
   const { username } = req.query
   if(!username){
     return res.status(400).send("Please include username")
@@ -94,5 +95,5 @@ app.post('/safe-cid', async (req, res) => {
   res.status(200).send()
 })
 
-const port = process.env.SERVER_PORT || 8080
+const port = process.env.PORT || 8080
 app.listen(port, () => console.log(`Listening on port ${port}!`))
