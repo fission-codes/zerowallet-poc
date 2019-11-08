@@ -58,7 +58,7 @@ As a brief overview of the components:
 - This is the exact same flow as **Signup** except that the server uses the `zk_key` that's already in the database
 
 ## Encryption
-If a user is only encrypting data for themselves, they can just encrypt/decrypt it with their `privateKey`. However, we wanted to built this in such a way that a "sharing" or "social" component could easily be added.
+If a user is only encrypting data for themselves, they can just encrypt/decrypt it with their `privateKey`. However, we wanted to build this in such a way that a "sharing" or "social" component could easily be added.
 
 To do this, you don't want to have to re-encrypt your note for every friend that you want to share it with. This leads to a lot of data replication, and also puts a big load on the user since everytime they edit the note, it must be re-encrypted for every one of their friends.
 

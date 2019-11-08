@@ -79,7 +79,8 @@ const styles = theme =>
   createStyles({
     root: {
       padding: theme.spacing(3),
-      width: 350,
+      width: '100%',
+      maxWidth: 350
     },
     form: {
       display: 'flex',

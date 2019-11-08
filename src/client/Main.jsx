@@ -15,8 +15,6 @@ class Main extends React.Component {
   async componentDidMount(){
     const hasShard = keystore.hasShard()
     this.setState({ hasShard })
-    // await keystore.unlock("dholms", "asdf")
-    // this.setState({ hasShard, username: "dholms", isLocked: false })
   }
 
   handleSubmit = async (info) => {
@@ -38,8 +36,8 @@ class Main extends React.Component {
   render() {
     const { classes } = this.props
     return (
-      <Container>
-        <div className={classes.loginContainer}>
+      <Container className={classes.root}>
+        <div className={classes.inner}>
           {
             this.state.isLocked ?
             <LoginForm onSubmit={this.handleSubmit} hasShard={this.state.hasShard} /> : 
@@ -53,10 +51,13 @@ class Main extends React.Component {
 
 const styles = theme =>
   createStyles({
-    loginContainer: {
-      marginTop: theme.spacing(8),
+    inner: {
+      margin: theme.spacing(2),
+      marginTop: theme.spacing(4),
       display: 'flex',
+      flexDirection: 'column',
       justifyContent: 'center',
+      alignItems: 'center'
     }
   });
 

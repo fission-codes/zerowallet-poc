@@ -10,21 +10,34 @@ class Safe extends React.Component {
 
   state = {
     text: "",
+    publicKey: "",
+    cid: "",
     loaded: false,
     saving: false,
     saved: false,
   }
 
   async componentDidMount() {
-    const content = await safe.getContent(this.props.username) 
-    this.setState({ text: content, loaded: true })
+    const cid = await safe.getCID(this.props.username)
+    const content = await safe.getContentForCID(cid) 
+    const publicKey = safe.getPublicKey()
+    this.setState({
+      text: content,
+      publicKey,
+      cid,
+      loaded: true
+    })
   }
 
   handleSave = async (evt) => {
     evt.preventDefault()
     this.setState({ saving: true })
-    await safe.saveContent(this.props.username, this.state.text)
-    this.setState({ saving: false, justSaved: true })
+    const cid = await safe.saveContent(this.props.username, this.state.text)
+    this.setState({
+      cid,
+      saving: false,
+      justSaved: true
+    })
   }
 
   handleChange = (evt) => {
@@ -39,43 +52,59 @@ class Safe extends React.Component {
     }
     
     return (
-      <Paper className={classes.root}>
-        <Typography variant="h4" className={classes.header}>
-          Safe
-        </Typography>
-        <TextField
-          fullWidth
-          multiline
-          autoFocus
-          rows="10"
-          variant="outlined"
-          placeholder="Store a private note here"
-          value={this.state.text}
-          onChange={this.handleChange}
-        />
-        <div className={classes.buttonContainer}>
-          <Button
-            color="primary"
-            disabled={this.state.justSaved}
-            variant="contained"
-            onClick={this.handleSave}
-          >
-            {this.state.saving ? "Saving" : "Save"}
-          </Button>
-        </div>
-      </Paper>
+      <div className={classes.root}>
+        <Paper className={classes.safe}>
+          <Typography variant="h4" className={classes.header}>
+            Safe
+          </Typography>
+          <TextField
+            fullWidth
+            multiline
+            autoFocus
+            rows="10"
+            variant="outlined"
+            placeholder="Store a private note here"
+            value={this.state.text}
+            onChange={this.handleChange}
+          />
+          <div className={classes.buttonContainer}>
+            <Button
+              color="primary"
+              disabled={this.state.justSaved}
+              variant="contained"
+              onClick={this.handleSave}
+            >
+              {this.state.saving ? "Saving" : "Save"}
+            </Button>
+          </div>
+        </Paper>
+        <Paper className={classes.detail}>
+          <Typography>
+            <strong>Public Key</strong>: {this.state.publicKey}
+          </Typography>
+          <Typography>
+            <strong>Your Safe's CID</strong>: {this.state.cid}
+          </Typography>
+        </Paper>
+      </div>
     )
   }
 }
 
 const styles = theme =>
   createStyles({
-    root: {
+    safe: {
       padding: theme.spacing(3),
-      width: 550,
+      width: '100%',
       display: 'flex',
       flexDirection: 'column', 
       alignItmes: 'center'
+    },
+    detail: {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
+      padding: theme.spacing(2),
+      wordBreak: 'break-all'
     },
     header: {
       textAlign: "center",

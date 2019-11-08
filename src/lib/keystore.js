@@ -38,6 +38,10 @@ const retrieveCipherKey = async (username) => {
   }
 }
 
+const getPublicKey = () => {
+  return keypair.getPublic().x.toString('hex')
+}
+
 const encrypt = (text, key=cipherKey) => {
   const cipher = crypto.createCipher(algorithm, key)
   let ciphered = cipher.update(text, 'utf8', 'hex')
@@ -85,6 +89,7 @@ const createShard = async (username, password1, password2) => {
 
 module.exports = {
   unlock,
+  getPublicKey,
   encrypt,
   decrypt,
   hasShard,
