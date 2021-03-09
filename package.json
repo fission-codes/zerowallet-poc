@@ -24,7 +24,7 @@
     "dotenv-webpack": "^1.7.0",
     "eccrypto": "^1.1.2",
     "ecurve": "^1.0.6",
-    "elliptic": "^6.5.1",
+    "elliptic": "^6.5.4",
     "express": "^4.17.1",
     "pg": "^7.12.1",
     "react": "^16.5.2",
